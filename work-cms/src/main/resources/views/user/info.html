@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+
+		<title>添加用户</title>
+
+		<link rel="icon" href="/images/icon.png" />
+		<link rel="stylesheet" href="/other/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="/other/font-awesome-4.7.0/css/font-awesome.min.css" media="all" />
+		<link rel="stylesheet" href="/css/public.css" media="all" />
+	</head>
+
+	<body class="childrenBody">
+		<form class="layui-form" style="width:80%;">
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">用户账号</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" name="username" value="${(info.username)!}" lay-verify="required|username" placeholder="请输入用户账号">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">所属公司</label>
+				<div class="layui-input-block">
+					<select id="dection" name="orgId" lay-verify="required|orgId">
+						<option value="">请选择所属公司</option>
+						<#list orgs as o>
+							<option value="${o.id}" <#if info?? && o.id == info.orgId>selected="selected"</#if>>${o.name}</option>
+						</#list>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">用户姓名</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" name="realName" value="${(info.realName)!}" lay-verify="required" placeholder="请输入用户姓名">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">用户邮箱</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" name="email" value="${(info.email)!}" lay-verify="email" placeholder="请输入用户邮箱">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">用户状态</label>
+				<div class="layui-input-block">
+					<input type="radio" name="status" value="0" title="正常" <#if !info?? || info.status == 0>checked="checked"</#if>>
+					<input type="radio" name="status" value="1" title="禁用" <#if info?? && info.status == 1>checked="checked"</#if>>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<div class="layui-input-block">
+					<button type="button" class="layui-btn" lay-submit="" lay-filter="create">立即提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+			<input type="hidden" name="id" value="${(info.id)!}" class="id" />
+			<input type="hidden" name="dection" value="${(info.dection)!}" />
+		</form>
+	</body>
+	
+	<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/js/vue.min.js"></script>
+	<script type="text/javascript" src="/other/layui/layui.js"></script>
+	<script type="text/javascript" src="/js/global.js"></script>
+	<script type="text/javascript" src="/js/user/info.js"></script>
+
+</html>

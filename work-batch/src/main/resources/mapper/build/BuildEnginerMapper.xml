@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suizhu.work.build.mapper.BuildEnginerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.suizhu.work.entity.BuildEnginer">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="brand" property="brand" />
+        <result column="design" property="design" />
+        <result column="type" property="type" />
+        <result column="purchase" property="purchase" />
+        <result column="region" property="region" />
+        <result column="code" property="code" />
+        <result column="doorway_id" property="doorwayId" />
+        <result column="project_name" property="projectName" />
+        <result column="project_mobile" property="projectMobile" />
+        <result column="owner_name" property="ownerName" />
+        <result column="owner_mobile" property="ownerMobile" />
+        <result column="dev_name" property="devName" />
+        <result column="dev_mobile" property="devMobile" />
+        <result column="contract_sign_date" property="contractSignDate" />
+        <result column="prepare_date" property="prepareDate" />
+        <result column="forecast_date" property="forecastDate" />
+        <result column="actual_date" property="actualDate" />
+        <result column="status" property="status" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

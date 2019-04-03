@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+
+		<title>添加模版</title>
+
+		<link rel="icon" href="/images/icon.png" />
+		<link rel="stylesheet" href="/other/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="/other/font-awesome-4.7.0/css/font-awesome.min.css" media="all" />
+		<link rel="stylesheet" href="/css/public.css" media="all" />
+	</head>
+
+	<body class="childrenBody">
+		<form id="operateConfig" class="layui-form" style="width:80%;">
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">模版名称</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" name="name" value="${(info.name)!}" lay-verify="required" placeholder="请输入模版名称">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">所属分类</label>
+				<div class="layui-input-block">
+					<select id="categotyId" name="categoryId" lay-verify="required">
+						<option value="">请选择所属分类</option>
+						<#list categorys as o>
+							<option value="${o.id}" <#if info?? && info.categoryId == o.id>selected="selected"</#if>>${o.name}</option>
+						</#list>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">配置模版</label>
+				<div class="layui-input-block">
+					<table class="layui-table">
+			      	<thead><tr>
+			      			<th>文件名</th>
+			        		<th>大小</th>
+			        		<th>状态</th>
+			        		<th>操作</th>
+			      	</tr></thead>
+			      	<tbody id="demoList"></tbody>
+				    </table>
+				    <button type="button" class="layui-btn userFaceBtn">
+						<i class="layui-icon">&#xe67c;</i>上传excel模版
+					</button>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">模版状态</label>
+				<div class="layui-input-block">
+					<input type="radio" name="status" value="0" title="正常" <#if !info?? || info.status == 0>checked="checked"</#if>>
+					<input type="radio" name="status" value="1" title="禁用" <#if info?? && info.status == 1>checked="checked"</#if>>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<div class="layui-input-block">
+					<button type="button" class="layui-btn" id="create" lay-submit="" lay-filter="create">立即提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+			<input type="hidden" name="id" value="${(info.id)!}" class="id" />
+			<input type="hidden" name="fileId" value="${(info.fileId)!}" class="layui-input" />
+		</form>
+	</body>
+	
+	<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/js/vue.min.js"></script>
+	<script type="text/javascript" src="/other/layui/layui.js"></script>
+	<script type="text/javascript" src="/js/global.js"></script>
+	<script type="text/javascript" src="/js/model/info.js"></script>
+
+</html>

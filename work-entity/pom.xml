@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>work-entity</artifactId>
+	<parent>
+		<groupId>com.suizhu</groupId>
+		<artifactId>work</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.suizhu</groupId>
+			<artifactId>work-common</artifactId>
+			<version>${work.version}</version>
+		</dependency>
+	</dependencies>
+
+</project>

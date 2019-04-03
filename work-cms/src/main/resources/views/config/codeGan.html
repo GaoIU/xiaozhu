@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	<meta charset="UTF-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="format-detection" content="telephone=no" />
+	
+	<title>代码生成</title>
+	
+	<link rel="icon" href="/images/icon.png" />
+	<link rel="stylesheet" href="/other/layui/css/layui.css" media="all" />
+	<link rel="stylesheet" href="/css/animate.css" media="all" />
+	<link rel="stylesheet" href="/other/font-awesome-4.7.0/css/font-awesome.min.css" media="all" />
+	<link rel="stylesheet" href="/css/global.css" media="all" />
+	</head>
+	
+	<body>
+		<div class="admin_main">
+			<!--
+            	作者：756034419@qq.com
+            	时间：2018-08-19
+            	描述：操作栏
+            -->
+			<div class="admin_header_fixed">
+				<div class="admin_header clearfix">
+					<div class="title"><i></i>代码生成</div>
+					<div class="action">
+						<b></b>
+						<div class="layui-btn-group "></div>
+					</div>
+				</div>
+			</div>
+
+			<!--
+            	作者：756034419@qq.com
+            	时间：2018-08-19
+            	描述：展示部分
+            -->
+			<div class="admin_base">
+				<!--
+                	作者：756034419@qq.com
+                	时间：2018-08-19
+                	描述：列表部分
+                -->
+				<div class="box_list">
+					<div class="box_content">
+						<form id="list_form" class="layui-form" novalidate="1">
+							<div class="layui-form-item layui-row layui-col-xs12 layui-col-sm12 layui-col-md12">
+								<label class="layui-form-label">数据库表</label>
+								<div class="layui-input-block">
+									<div id="tableNames" class="layui-col-xs9 layui-col-sm9 layui-col-md10">
+										<#list tables as t>
+										<input type="checkbox" name="tableNames" title="${(t)!}" value="${(t)!}" />
+										</#list>
+									</div>
+									<div class="layui-col-xs3 layui-col-sm3 layui-col-md2">
+										<input id="chooesAll" type="checkbox" title="全选" value="1" />
+									</div>
+								</div>
+							</div>
+							<div class="layui-form-item layui-row layui-col-xs12 layui-col-sm12 layui-col-md12">
+								<label class="layui-form-label">模块名</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input" name="modelName" lay-verify="required" placeholder="请输入模块名">
+								</div>
+							</div>
+							<div class="layui-form-item layui-row layui-col-xs12 layui-col-sm12 layui-col-md12">
+								<label class="layui-form-label">包名</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input" name="parentName" value="com.suizhu.work" lay-verify="required" placeholder="请输入包名">
+								</div>
+							</div>
+							<div class="layui-form-item layui-row layui-col-xs12 layui-col-sm12 layui-col-md12">
+								<label class="layui-form-label">作者名</label>
+								<div class="layui-input-block">
+									<input type="text" class="layui-input" name="author" value="GaoChao" lay-verify="required" placeholder="请输入作者名">
+								</div>
+							</div>
+							<div class="layui-form-item layui-row layui-col-xs12 layui-col-sm12 layui-col-md12">
+								<label class="layui-form-label">表前缀</label>
+								<div class="layui-input-block">
+									<textarea name="tablePrefix" placeholder="要过滤的表前缀，多个用逗号分隔" class="layui-textarea"></textarea>
+								</div>
+							</div>
+							<div class="layui-form-item layui-row layui-col-xs12 layui-col-sm12 layui-col-md12">
+								<label class="layui-form-label">保存目录路径</label>
+								<div class="layui-input-block">
+									<textarea name="dir" placeholder="请输入保存目录路径" lay-verify="required" class="layui-textarea">/Users/gaochao/Desktop/Darius/</textarea>
+								</div>
+							</div>
+							<div class="layui-form-item layui-row layui-col-xs12 layui-col-sm12 layui-col-md12">
+								<div class="layui-input-block">
+									<button type="button" class="layui-btn" lay-submit="" lay-filter="create">立即提交</button>
+									<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+
+			<div class="admin_bottom"></div>
+		</div>
+	</body>
+	
+	<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/js/vue.min.js"></script>
+	<script type="text/javascript" src="/js/moment.min.js"></script>
+	<script type="text/javascript" src="/other/layui/layui.js"></script>
+	<script type="text/javascript" src="/js/global.js"></script>
+	<script type="text/javascript" src="/js/tableResize.js"></script>
+	<script type="text/javascript" src="/js/config/codeGan.js"></script>
+	
+</html>

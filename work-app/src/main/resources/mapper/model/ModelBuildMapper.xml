@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suizhu.work.model.mapper.ModelBuildMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.suizhu.work.entity.ModelBuild">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="days" property="days" />
+        <result column="sort" property="sort" />
+        <result column="begin_day" property="beginDay" />
+        <result column="model_id" property="modelId" />
+    </resultMap>
+    
+    <!-- 获取最大天数 -->
+    <select id="getMaxDays" parameterType="string" resultType="int">
+    	SELECT MAX(days + begin_day) days FROM model_build WHERE model_id IN 
+    	<foreach collection="modelIds" item="modelId" index="index" open="(" separator="," close=")">
+    		#{modelId}
+    	</foreach>
+    </select>
+
+</mapper>

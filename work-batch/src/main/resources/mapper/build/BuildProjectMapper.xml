@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suizhu.work.build.mapper.BuildProjectMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.suizhu.work.entity.BuildProject">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="series_id" property="seriesId" />
+        <result column="begin_date" property="beginDate" />
+        <result column="end_date" property="endDate" />
+        <result column="plan_days" property="planDays" />
+        <result column="overdue_days" property="overdueDays" />
+        <result column="actual_date" property="actualDate" />
+        <result column="type" property="type" />
+        <result column="sort" property="sort" />
+        <result column="early" property="early" />
+        <result column="status" property="status" />
+        <result column="parent_id" property="parentId" />
+        <result column="build_enginer_id" property="buildEnginerId" />
+        <result column="room_id" property="roomId" />
+        <result column="create_id" property="createId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

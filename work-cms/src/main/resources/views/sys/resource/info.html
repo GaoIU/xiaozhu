@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+
+		<title>添加后台资源</title>
+
+		<link rel="icon" href="/images/icon.png" />
+		<link rel="stylesheet" href="/other/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="/other/fontIconPicker-2.0.0/css/jquery.fonticonpicker.min.css" media="all" />
+		<link rel="stylesheet" href="/other/font-awesome-4.7.0/css/font-awesome.min.css" media="all" />
+		<link rel="stylesheet" href="/other/fontIconPicker-2.0.0/themes/grey-theme/jquery.fonticonpicker.grey.min.css" media="all" />
+		<link rel="stylesheet" href="/css/public.css" media="all" />
+		
+		<style type="text/css">
+			.parent:hover {
+				color: orangered;
+				cursor: pointer;
+			}
+			.layui-form-select .layui-tree {
+			    display: none;
+			    position: absolute;
+			    left: 0;
+			    top: 42px;
+			    padding: 5px 0;
+			    z-index: 999;
+			    min-width: 100%;
+			    border: 1px solid #d2d2d2;
+			    max-height: 300px;
+			    overflow-y: auto;
+			    background-color: #fff;
+			    border-radius: 2px;
+			    box-shadow: 0 2px 4px rgba(0,0,0,.12);
+			    box-sizing: border-box;
+				line-height: 30px;
+			}
+			.layui-form-select .layui-tree li i {
+				margin-right: 5px;
+			}
+			.layui-form-select .layui-tree li ul {
+				margin-left: 24px;
+			}
+			.layui-form-selected .layui-tree {
+			    display: block;
+			}
+		</style>
+	</head>
+
+	<body class="childrenBody">
+		<form class="layui-form" style="width:80%;">
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">资源名称</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" name="name" value="${(info.name)!}" lay-verify="required|name" placeholder="请输入资源名称">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">资源编码</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" name="code" value="${(info.code)!}" lay-verify="required|code" placeholder="请输入资源编码">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">资源地址</label>
+				<div class="layui-input-block">
+					<textarea name="url" placeholder="请输入资源地址" class="layui-textarea">${(info.url)!}</textarea>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">访问方式</label>
+				<div class="layui-input-block">
+					<select name="method">
+						<option value="GET" <#if info?? && info.method == "GET">selected="selected"</#if>>GET</option>
+						<option value="POST" <#if info?? && info.method == "POST">selected="selected"</#if>>POST</option>
+						<option value="DELETE" <#if info?? && info.method == "DELETE">selected="selected"</#if>>DELETE</option>
+						<option value="PUT" <#if info?? && info.method == "PUT">selected="selected"</#if>>PUT</option>
+						<option value="OPTIONS" <#if info?? && info.method == "OPTIONS">selected="selected"</#if>>OPTIONS</option>
+						<option value="HEDA" <#if info?? && info.method == "HEDA">selected="selected"</#if>>HEDA</option>
+						<option value="PATCH" <#if info?? && info.method == "PATCH">selected="selected"</#if>>PATCH</option>
+						<option value="TRACE" <#if info?? && info.method == "TRACE">selected="selected"</#if>>TRACE</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">资源类型</label>
+				<div class="layui-input-block">
+					<select name="type">
+						<option value="0" <#if info?? && info.type == 0>selected="selected"</#if>>菜单</option>
+						<option value="1" <#if info?? && info.type == 1>selected="selected"</#if>>按钮</option>
+						<option value="2" <#if info?? && info.type == 2>selected="selected"</#if>>功能</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">排序</label>
+				<div class="layui-input-block">
+					<input type="number" name="sort" value="${(info.sort)!}" class="layui-input" placeholder="请输入排序号">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">图标</label>
+				<div class="layui-input-block">
+					<input type="text" name="icon" value="${(info.icon)!}" id="icon_picker" placeholder="请选择图标">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">上级资源</label>
+				<div class="layui-input-block">
+					<div class="layui-unselect layui-form-select parent-selected">
+						<div class="layui-select-title">
+							<input type="hidden" name="parentId" value="${(info.parentId)!}" readonly="readonly" class="layui-input parentId">
+					        <input type="text" value="${(info.parentName)!}" placeholder="上级资源" readonly="readonly" class="layui-input layui-unselect parentName">
+					        <i class="layui-edge"></i>
+					    </div>
+					    <ul id="tree" class="layui-anim layui-anim-upbit layui-tree layui-box"></ul>
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">资源描述</label>
+				<div class="layui-input-block">
+					<textarea name="description" placeholder="请输入资源描述" class="layui-textarea">${(info.description)!}</textarea>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">资源状态</label>
+				<div class="layui-input-block">
+					<input type="radio" name="status" value="0" title="正常" <#if !info?? || info.status == 0>checked="checked"</#if>>
+					<input type="radio" name="status" value="1" title="禁用" <#if info?? && info.status == 1>checked="checked"</#if>>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<div class="layui-input-block">
+					<button type="button" class="layui-btn" lay-submit="" lay-filter="create">立即提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+			<input type="hidden" name="id" value="${(info.id)!}" class="id" />
+		</form>
+	</body>
+	
+	<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/other/fontIconPicker-2.0.0/jquery.fonticonpicker.min.js"></script>
+	<script type="text/javascript" src="/js/vue.min.js"></script>
+	<script type="text/javascript" src="/other/layui/layui.js"></script>
+	<script type="text/javascript" src="/js/global.js"></script>
+	<script type="text/javascript" src="/js/sys/resource/info.js"></script>
+
+</html>

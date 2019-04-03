@@ -1,0 +1,106 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.suizhu</groupId>
+	<artifactId>work</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<modules>
+		<module>/work-common</module>
+		<module>/work-cms</module>
+		<module>/work-batch</module>
+		<module>/work-entity</module>
+		<module>/work-app</module>
+	</modules>
+
+	<properties>
+		<spring-boot.version>2.1.3.RELEASE</spring-boot.version>
+		<spring-platform.version>Cairo-SR7</spring-platform.version>
+		<spring-cloud.version>Greenwich.RELEASE</spring-cloud.version>
+		<jackson-modules.version>2.9.8</jackson-modules.version>
+		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<git-commit-id-plugin.version>2.2.6</git-commit-id-plugin.version>
+		<work.version>1.0.0</work.version>
+		<jasypt.version>2.1.1</jasypt.version>
+		<hutool-all.version>4.4.5</hutool-all.version>
+		<fastdfs-client.version>1.26.5</fastdfs-client.version>
+		<mybatis-plus-boot.version>3.0.6</mybatis-plus-boot.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>io.spring.platform</groupId>
+				<artifactId>platform-bom</artifactId>
+				<version>${spring-platform.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>com.fasterxml.jackson.module</groupId>
+				<artifactId>jackson-modules-java8</artifactId>
+				<version>${jackson-modules.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<target>${maven.compiler.target}</target>
+					<source>${maven.compiler.source}</source>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>${git-commit-id-plugin.version}</version>
+			</plugin>
+		</plugins>
+	</build>
+
+	<repositories>
+		<!--使用阿里云镜像 -->
+		<repository>
+			<id>aliyun</id>
+			<name>aliyun</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+		</repository>
+
+		<!--使用Spring镜像 -->
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+		</repository>
+	</repositories>
+
+</project>

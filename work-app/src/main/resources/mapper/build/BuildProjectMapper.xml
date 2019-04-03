@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suizhu.work.build.mapper.BuildProjectMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.suizhu.work.entity.BuildProject">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="series_id" property="seriesId" />
+        <result column="begin_date" property="beginDate" />
+        <result column="end_date" property="endDate" />
+        <result column="plan_days" property="planDays" />
+        <result column="overdue_days" property="overdueDays" />
+        <result column="actual_date" property="actualDate" />
+        <result column="type" property="type" />
+        <result column="sort" property="sort" />
+        <result column="early" property="early" />
+        <result column="status" property="status" />
+        <result column="parent_id" property="parentId" />
+        <result column="build_enginer_id" property="buildEnginerId" />
+        <result column="room_id" property="roomId" />
+        <result column="create_id" property="createId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+    
+    <!-- 获取项目列表 -->
+    <select id="queryList" parameterType="map" resultType="map">
+    	SELECT id, sort, `name`, series_id, begin_date, end_date, plan_days, early, type, room_id, actual_date, overdue_days, status FROM build_project WHERE build_enginer_id = #{buildEnginerId} 
+    	<if test="seriesId != null and seriesId != ''">
+    		AND series_id = #{seriesId}
+    	</if>
+    	<choose>
+    		<when test="type == 1 and doing != null">
+    			AND (YEARWEEK(DATE(begin_date)) = YEARWEEK(NOW()) OR `status` = #{doing})
+    		</when>
+    		<when test="type == 2 and doing != null">
+    			AND (DATE_FORMAT(begin_date, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m') OR `status` = #{doing})
+    		</when>
+    		<when test="type == 1 and doing == null">
+    			AND YEARWEEK(DATE(begin_date)) = YEARWEEK(NOW())
+    		</when>
+    		<when test="type == 2 and doing == null">
+    			AND DATE_FORMAT(begin_date, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m')
+    		</when>
+    	</choose>
+    	<if test="status != null">
+    		AND `status` = #{status}
+    	</if>
+    	<if test="month != null">
+    		AND DATE_FORMAT(begin_date, '%m') = #{month}
+    	</if>
+    	ORDER BY sort, begin_date ASC
+    </select>
+    
+    <!-- 获取下一个项目列表 -->
+    <select id="nextQuery" parameterType="map" resultType="map">
+    	SELECT id, sort, `name`, series_id, begin_date, end_date, plan_days, early, type, room_id, actual_date, overdue_days, status FROM build_project WHERE build_enginer_id = #{buildEnginerId} 
+    	<if test="seriesId != null and seriesId != ''">
+    		AND series_id LIKE CONCAT('%', #{seriesId}, '%')
+    	</if>
+    	<if test="type == 1">
+    		AND YEARWEEK(DATE(begin_date)) = YEARWEEK(NOW()) + 1
+    	</if>
+    	<if test="type == 2">
+    		AND PERIOD_DIFF(DATE_FORMAT(CURDATE(), '%Y%m'), DATE_FORMAT(begin_date, '%Y%m')) = -1
+    	</if>
+    	ORDER BY sort, begin_date ASC
+    </select>
+    
+    <!-- 获取条数 -->
+    <select id="queryCount" parameterType="map" resultType="int">
+    	SELECT COUNT(1) FROM build_project WHERE build_enginer_id = #{buildEnginerId} AND type = #{bpIn} 
+    	<if test="seriesId != null and seriesId != ''">
+    		AND series_id LIKE CONCAT('%', #{seriesId}, '%')
+    	</if>
+    	<if test="status != null">
+    		AND `status` = #{status}
+    	</if>
+    	<if test="type == 1">
+    		AND YEARWEEK(DATE(begin_date)) = YEARWEEK(NOW())
+    	</if>
+    	<if test="type == 2">
+    		AND DATE_FORMAT(begin_date, '%Y%m') = DATE_FORMAT(CURDATE(), '%Y%m')
+    	</if>
+    </select>
+    
+    <!-- 根据月份查询数据 -->
+    <select id="findByMonth" parameterType="map" resultType="map">
+    	SELECT begin_date, early, `status` FROM build_project WHERE build_enginer_id = #{buildEnginerId} AND DATE_FORMAT(begin_date, '%Y-%m') = #{date}
+    </select>
+    
+    <!-- 获取月份选项卡 -->
+    <select id="option" parameterType="string" resultType="integer">
+    	SELECT DATE_FORMAT(begin_date, '%m') month FROM build_project WHERE build_enginer_id = #{org0} GROUP BY month
+    </select>
+    
+    <!-- 获取工序列表 -->
+    <select id="queryV2" parameterType="map" resultType="map">
+    	SELECT id, `name`, series_id, begin_date, end_date, plan_days, overdue_days, actual_date, type, early, `status`, room_id FROM build_project WHERE build_enginer_id = #{buildEnginerId} 
+    	<if test="type == 1">
+    		AND ((begin_date >= #{beginDate} AND begin_date &lt;= #{endDate}) OR (actual_date BETWEEN #{beginDate} AND #{endDate})<if test="gtWeek != null"> OR (<if test="doing != null">`status` != #{flush} AND </if>begin_date &lt;= #{endDate})</if>)
+    	</if>
+    	<if test="type == 2">
+    		AND ((DATE_FORMAT(begin_date, '%Y%m') = #{monthDate} OR DATE_FORMAT(actual_date, '%Y%m') = #{monthDate})<if test="gtMonth != null"> OR (<if test="doing != null">`status` != #{flush} AND </if>DATE_FORMAT(begin_date, '%Y%m') &lt;= #{monthDate})</if>)
+    	</if>
+    	<if test="status != null">
+    		AND `status` = #{status}
+    	</if>
+    	<if test="date != null">
+    		AND ((#{date} BETWEEN begin_date AND end_date OR #{date} BETWEEN begin_date AND actual_date)<if test="gtDate != null"> OR (`status` != #{flush} AND begin_date &lt;= #{date})</if>)
+    	</if>
+    	<if test="seriesId != null">
+    		AND series_id LIKE CONCAT('%', #{seriesId}, '%')
+    	</if>
+    	ORDER BY sort ASC
+    </select>
+    
+    <!-- 获取日历数据 -->
+    <select id="queryCalendar" parameterType="map" resultType="map">
+    	SELECT begin_date, end_date, actual_date, early, `status` FROM build_project WHERE build_enginer_id = #{buildEnginerId} 
+    	<if test="doing != null">
+    		AND (1 = 1 OR `status` = #{doing})
+    	</if>
+    	<if test="type == 1">
+    		AND begin_date &lt;= #{beginDate}
+    	</if>
+    	<if test="type == 2">
+    		AND DATE_FORMAT(begin_date, '%Y%m') &lt;= #{monthDate}
+    	</if>
+    	<if test="seriesId != null">
+    		AND series_id LIKE CONCAT('%', #{seriesId}, '%')
+    	</if>
+    </select>
+
+</mapper>

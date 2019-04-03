@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+
+		<title>添加定时任务</title>
+
+		<link rel="icon" href="/images/icon.png" />
+		<link rel="stylesheet" href="/other/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="/other/font-awesome-4.7.0/css/font-awesome.min.css" media="all" />
+		<link rel="stylesheet" href="/css/public.css" media="all" />
+	</head>
+
+	<body class="childrenBody">
+		<form class="layui-form" style="width:80%;">
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">任务名</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" name="jobName" value="${(info.jobName)!}" lay-verify="required" placeholder="请输入任务名">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">任务组</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" name="jobGroup" value="${(info.jobGroup)!}" lay-verify="required" placeholder="请输入任务组">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">时间表达式</label>
+				<div class="layui-input-block">
+					<input type="text" class="layui-input" name="cron" value="${(info.cron)!}" lay-verify="required" placeholder="请输入时间表达式">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">备注</label>
+				<div class="layui-input-block">
+					<textarea name="remark" placeholder="请输入备注" class="layui-textarea" lay-verify="required">${(info.remark)!}</textarea>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">是否并发</label>
+				<div class="layui-input-block">
+					<input type="radio" name="concurrent" value="0" title="是" <#if info?? && info.concurrent == 0>checked="checked"</#if>>
+					<input type="radio" name="concurrent" value="1" title="否" <#if !info?? || info.concurrent == 1>checked="checked"</#if>>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<label class="layui-form-label">运行状态</label>
+				<div class="layui-input-block">
+					<input type="radio" name="status" value="0" title="开启" <#if !info?? || info.status == 0>checked="checked"</#if>>
+					<input type="radio" name="status" value="1" title="关闭" <#if info?? && info.status == 1>checked="checked"</#if>>
+				</div>
+			</div>
+			<div class="layui-form-item layui-row layui-col-xs12">
+				<div class="layui-input-block">
+					<button type="button" class="layui-btn" lay-submit="" lay-filter="create">立即提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+			<input type="hidden" name="id" value="${(info.id)!}" class="id" />
+		</form>
+	</body>
+	
+	<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/js/vue.min.js"></script>
+	<script type="text/javascript" src="/other/layui/layui.js"></script>
+	<script type="text/javascript" src="/js/global.js"></script>
+	<script type="text/javascript" src="/js/sys/schedule/info.js"></script>
+
+</html>

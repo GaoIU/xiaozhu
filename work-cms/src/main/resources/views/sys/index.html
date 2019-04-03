@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="format-detection" content="telephone=no" />
+
+		<title>小助后台管理</title>
+
+		<link rel="icon" href="/images/icon.png" />
+		<link rel="stylesheet" href="/other/layui/css/layui.css" media="all" />
+		<link rel="stylesheet" href="/css/animate.css" media="all" />
+		<link rel="stylesheet" href="/other/font-awesome-4.7.0/css/font-awesome.min.css" media="all" />
+		<link rel="stylesheet" href="/css/global.css" media="all" />
+		<link rel="stylesheet" href="/css/index.css" media="all" />
+	</head>
+
+	<body>
+		<div id="gloBox" class="layui-fluid ">
+			<!--
+            	作者：756034419@qq.com
+            	时间：2018-07-26
+            	描述：页眉部分
+            -->
+			<div id="gloTop" class="clearfix layui-row">
+				<!--
+                	作者：756034419@qq.com
+                	时间：2018-07-26
+                	描述：logo部分
+                -->
+				<div class="layui-col-xs6 layui-col-sm6 layui-col-md4 gtLeft clearfix">
+					<div class="logo"><img src="/images/logo.png" alt="AndPHP" /></div>
+					<div class="menuBar layui-hide-xs">
+						<ul class="list">
+							<li class="bar_line bar_top"></li>
+							<li class="bar_line bar_mid"></li>
+							<li class="bar_line bar_foot"></li>
+						</ul>
+					</div>
+				</div>
+
+				<!--
+                	作者：756034419@qq.com
+                	时间：2018-07-26
+                	描述：用户信息展示部分
+                -->
+				<div class="layui-col-xs6 layui-col-sm6 layui-col-md8 gtRght">
+					<ul class="layui-nav list" lay-filter="">
+						<li class="layui-nav-item">
+							<a href="javascript:;" class="admin-user">
+								<span class="admin-user-headpic"><img id="userAvatar" src="${SYS_USER_SESSION_KEY.avatar}" alt=""/></span>
+								<span class="admin-user-name en-font" id="userNickName">${SYS_USER_SESSION_KEY.nickName}</span>
+							</a>
+							<dl class="layui-nav-child">
+								<i class="i"></i>
+								<dd>
+									<a data-href="/sysUserInfo" class="new_tab" data-icon="fa-user-circle"><i class="fa fa-user-circle" aria-hidden="true"></i>个人资料</a>
+								</dd>
+								<dd>
+									<a data-href="/resetPwd" class="new_tab" data-icon="fa-expeditedssl"><i class="fa fa-expeditedssl" aria-hidden="true"></i>修改密码</a>
+								</dd>
+								<dd class="bt">
+									<a id="logout"><i class="fa fa-sign-out" aria-hidden="true"></i>注销登录</a>
+								</dd>
+							</dl>
+						</li>
+					</ul>
+					<ul class="layui-nav list layui-hide-xs" lay-filter="">
+						<li class="layui-nav-item circle gohome first">
+							<a class="tooltip and-bg-default" data-tip-text="访问前台" data-tip-type="3" href="#" target="_blank"><i class="fa fa-home"></i></a>
+						</li>
+						<li class="layui-nav-item circle skin-down">
+							<a href="javascript:void(0);"><i class="fa fa-yelp" style="margin: -7px 0 0 -6px;"></i></a>
+							<div class="skin-show clearfix">
+								<a data-skin="default" rel="change_skin" style="background-color: #5EABE1;" class="javascript"></a>
+								<a data-skin="green" rel="change_skin" style="background-color: #00A65A;" class="javascript"></a>
+								<a data-skin="pink" rel="change_skin" style="background-color: #FA6086;" class="javascript"></a>
+								<a data-skin="yellow" rel="change_skin" style="background-color: #FF9A1E;" class="javascript"></a>
+								<a data-skin="red" rel="change_skin" style="background-color: #FA2A00;" class="javascript"></a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<!--
+            	作者：756034419@qq.com
+            	时间：2018-07-26
+            	描述：主体部分-导航列表
+            -->
+			<div id="gloLeft" class="sizing site-tree">
+				<div class="leftbg"></div>
+				<div id="leftBar">
+					<ul class="list" id="gloMenu" v-html='html'></ul>
+				</div>
+			</div>
+
+			<!--
+            	作者：756034419@qq.com
+            	时间：2018-07-26
+            	描述：主体部分-数据展示部分
+            -->
+			<div id="gloRght" lay-allowClose="true">
+				<div class="layui-tab admin-nav-card" lay-filter="admin-tab">
+					<div class="topBg coverBg"></div>
+					<div class="tab-bg"></div>
+					<a href="javascript:void(0);" class="tab-prev"><i class="fa fa-angle-double-left fa-2x"></i></a>
+					<a href="javascript:void(0);" class="tab-next"><i class="fa fa-angle-double-right fa-2x"></i></a>
+					<ul class="layui-tab-title"></ul>
+
+					<div class="layui-tab-content">
+						<div class="layadmin-tabsbody-item layui-show"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!--
+        	作者：756034419@qq.com
+        	时间：2018-07-26
+        	描述：移动端遮掩
+        -->
+		<div id="left_bar">
+			<div id="site-tree-mobile" class="site-tree-mobile layui-hide layui-show-xs-block">
+				<i id="_icon" class="layui-icon">&#xe602;</i>
+			</div>
+		</div>
+		<div class="site-mobile-shade"></div>
+	</body>
+
+	<script type="text/javascript" src="/js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="/js/vue.min.js"></script>
+	<script type="text/javascript" src="/other/layui/layui.js"></script>
+	<script type="text/javascript" src="/js/jquery.nicescroll.min.js"></script>
+	<script type="text/javascript" src="/js/global.js"></script>
+	<!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+	<!--[if lt IE 9]>
+    		<script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    		<script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+    <script type="text/javascript">
+    	var winWidth = $(window).width();
+		var heiHeght = $(window).height();
+	    var layer;
+	    $(function() {
+	    	layui.use('layer', function() {
+	    		layer = layui.layer;
+	    		
+	    		layer.config({
+	                zIndex:10000
+	            });
+	    	});
+	    });
+    </script>
+	<script type="text/javascript" src="/js/sys/index.js"></script>
+
+</html>
